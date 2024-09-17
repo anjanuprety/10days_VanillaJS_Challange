@@ -20,7 +20,7 @@
 
   <style>
     html {
-      background: #018DED url(https://unsplash.it/1500/1000?image=881&blur=5);
+      background-image: linear-gradient(to left top, #4e343a, #654454, #785772, #866c94, #8c84b8, #8f8abe, #9390c4, #9696ca, #998bb4, #96819e, #8d798b, #81727b);
       background-size: cover;
       font-family: 'helvetica neue';
       text-align: center;
@@ -37,21 +37,23 @@
     }
 
     .clock {
+      background-image: radial-gradient(circle, #ecf4ff, #d4dae5, #bcc0cc, #a5a7b3, #8e8f9a);
       width: 30rem;
       height: 30rem;
-      border: 20px solid white;
+      border: 5px solid rgb(46, 38, 38);
       border-radius: 50%;
       margin: 50px auto;
       position: relative;
       padding: 2rem;
       box-shadow:
         0 0 0 4px rgba(0,0,0,0.1),
-        inset 0 0 0 3px #EFEFEF,
-        inset 0 0 10px black,
+        inset 0 0 0 3px #554f4f,
+        inset 0 0 10px #AE98AA,
         0 0 10px rgba(0,0,0,0.2);
     }
 
     .clock-face {
+      
       position: relative;
       width: 100%;
       height: 100%;
@@ -59,9 +61,10 @@
     }
 
     .hand {
+  
       width: 50%;
       height: 6px;
-      background: black;
+      background: rgb(0, 0, 0);
       position: absolute;
       top: 50%;
       transform-origin: 100%;
@@ -70,6 +73,13 @@
       transition-timing-function: cubic-bezier(0.1, 2.7, 0.65, 1); */
       transition:  0.9s linear; 
     }
+    .hour-hand{
+      width: 40%;
+      left: 10.7%;  
+    }
+    .second-hand{
+      background-image: radial-gradient(circle, #000000, #16040e, #1f0a1c, #21102c, #1a1740);
+        }
 
   </style>
 
@@ -85,8 +95,11 @@
       const now= new Date();
 
       const seconds= now.getSeconds()
-      const secondsDegrees= ((seconds/60)*360)+ 90;
-      secondHand.style.transform= `rotate(${secondsDegrees}deg)`
+      const secondsDegrees= ((seconds/60)*360);
+      secondHand.style.transform= `rotate(${secondsDegrees}deg)`;
+      if (totalSecondDegrees >= 450) { // This prevents it from going beyond a full rotation
+    totalSecondDegrees = 90; // Reset to the start point (90 degrees)
+      }
 
       const minutes= now.getMinutes()
       const minutesDegrees= ((minutes/60)*360)+90 +(seconds/60)*6;
